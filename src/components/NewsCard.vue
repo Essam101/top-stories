@@ -1,34 +1,31 @@
 <template>
-  <b-card
-    v-if="model"
-    :title="model.title"
-    img-alt="Image"
-    img-top
-    tag="article"
-    style="max-width: 50rem"
-    class="mb-3"
-    img-height="400"
-    :img-src="imageUrl"
-  >
-    <template #footer>
-      <small class="text-muted">
-        {{ model.created_date | formatDate }}
+  <b-card v-if="model" tag="article" style="max-width: 50rem" class="mb-3">
+    <b-card-img
+      @click="atricaleDetails()"
+      :src="imageUrl"
+      style="max-width: 50rem"
+      class="mb-3"
+      height="400"
+    ></b-card-img>
 
-        <b-card-body>
-          <b-icon icon="arrow-right" @click="atricaleDetails()"></b-icon
-          ><b-icon
-            icon="bookmark-heart-fill"
-            style="margin-left: 100px"
-            v-if="isInBookmark"
-            @click="removeFromBookmark()"
-          ></b-icon>
-          <b-icon
-            icon="bookmark-heart"
-            @click="addToBookmark()"
-            style="margin-left: 100px"
-            v-else
-          ></b-icon> </b-card-body
-      ></small>
+    <h4 @click="atricaleDetails()">{{ model.title }}</h4>
+
+    <template #footer>
+      <span>Published date : {{ model.created_date | formatDate }}</span>
+      <span v-if="isInBookmark"
+        ><b-icon
+          icon="bookmark-heart-fill"
+          style="margin-left: 100px"
+          @click="removeFromBookmark()"
+        ></b-icon
+      ></span>
+      <span v-else>
+        <b-icon
+          icon="bookmark-heart"
+          @click="addToBookmark()"
+          style="margin-left: 100px"
+        ></b-icon>
+      </span>
     </template>
   </b-card>
 </template>
@@ -45,7 +42,9 @@ export default {
   },
   computed: {
     imageUrl: function () {
-      if (this.model.multimedia.length > 0) return this.model.multimedia[0].url;
+      if (this.model.multimedia != null)
+        if (this.model.multimedia.length > 0)
+          return this.model.multimedia[0].url;
       return "";
     },
   },

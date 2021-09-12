@@ -2,7 +2,7 @@
   <div>
     <b-nav tabs align="center">
       <b-navbar-brand active>{{ model.section }}</b-navbar-brand>
-
+      <b-nav-item @click="getAnotherSection('home')">home</b-nav-item>
       <b-nav-item @click="getAnotherSection('arts')">arts</b-nav-item>
       <b-nav-item @click="getAnotherSection('automobiles')"
         >automobiles</b-nav-item
