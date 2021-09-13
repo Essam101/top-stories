@@ -11,23 +11,57 @@
       >
       <b-collapse id="nav-text-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/"> Home </b-nav-item>
-          <b-nav-item to="/bookmarks"> Bookmarks </b-nav-item>
+          <!--home click-->
+          <b-nav-item
+            to="/home"
+            v-if="path == '/' || path == '/home'"
+            @click="getAnotherSection('home')"
+            active
+          >
+            Home
+          </b-nav-item>
+          <b-nav-item v-else to="/home" @click="getAnotherSection('home')">
+            Home
+          </b-nav-item>
+          <!--end-->
+
+          <!--bookmark click-->
+          <b-nav-item v-if="path == '/bookmarks'" to="/bookmarks" active>
+            Bookmarks
+          </b-nav-item>
+          <b-nav-item v-else @click="activeMenu('/bookmarks')" to="/bookmarks">
+            Bookmarks
+          </b-nav-item>
+          <!--end-->
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <!-- <b-navbar type="dark" variant="dark">
-      <b-navbar-brand to="/">Top Stories</b-navbar-brand>
-
-      <b-navbar-nav>
-        <b-nav-item to="/"> Home </b-nav-item>
-        <b-nav-item to="/bookmarks"> Bookmarks </b-nav-item>
-      </b-navbar-nav>
-    </b-navbar> -->
-
     <router-view />
   </div>
 </template>
+<script>
+import { mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      path: this.$route.path,
+    };
+  },
+  methods: {
+    ...mapActions({
+      getHomeModel: "Home/getHomeModel",
+    }),
+    async getAnotherSection(urlQurey) {
+      this.activeMenu("/home");
+      this.$router.push({ path: "home", query: { section: urlQurey } });
+      await this.getHomeModel();
+    },
+    activeMenu(path) {
+      this.path = path;
+    },
+  },
+};
+</script>
  <style scoped>
 .subtitle {
   font-size: 10px;
