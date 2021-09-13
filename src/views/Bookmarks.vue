@@ -37,11 +37,11 @@ export default {
     }),
   },
   created: function () {
-    this.getBookMarks();
+    this.getBookmarks();
   },
   methods: {
     ...mapActions({
-      getBookMarks: "Bookmark/getBookMarks",
+      getBookmarks: "Bookmark/getBookmarks",
     }),
   },
 };

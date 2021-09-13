@@ -57,7 +57,7 @@ export default {
   methods: {
     ...mapActions({
       getHomeModel: "Home/getHomeModel",
-      getBookMarks: "Bookmark/getBookMarks",
+      getBookmarks: "Bookmark/getBookmarks",
     }),
     async getAnotherSection(urlQurey) {
       if (!this.isLoading) {

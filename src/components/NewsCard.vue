@@ -1,14 +1,14 @@
 <template>
   <b-card v-if="model" tag="article" style="max-width: 50rem" class="mb-3">
     <b-card-img
-      @click="articleDatails()"
+      @click="OpenarticleDetails()"
       :src="imageUrl"
       style="max-width: 50rem"
       class="mb-3"
       height="400"
     ></b-card-img>
 
-    <h4 @click="articleDatails()">{{ model.title }}</h4>
+    <h4 @click="OpenarticleDetails()">{{ model.title }}</h4>
     <template #footer>
       <span>Published date : {{ model.created_date | formatDate }}</span>
       <span v-if="isInBookmarks()"
@@ -53,13 +53,13 @@ export default {
     },
   },
   created: function () {
-    this.getBookMarks();
+    this.getBookmarks();
   },
   methods: {
     ...mapActions({
       addArticle: "Bookmark/addArticle",
       removeArticle: "Bookmark/removeArticle",
-      getBookMarks: "Bookmark/getBookMarks",
+      getBookmarks: "Bookmark/getBookmarks",
       articleDetails: "Home/articleDetails",
     }),
     addToBookmark() {
@@ -70,7 +70,7 @@ export default {
       this.removeArticle(this.model);
       this.isInBookmarks();
     },
-    articleDatails() {
+    OpenarticleDetails() {
       this.$router.push({
         path: `articleDetails`,
       });

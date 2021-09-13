@@ -11,7 +11,7 @@ const state = {
 };
 
 const actions = {
-    // I do call this function every time I want to bring a new different section 
+    // I call this function every time I want to bring a new different section 
     async getHomeModel({ commit, state }) {
         let q = router.history.current.query["section"]
         let urlQuery = q != undefined ? q : "home"
@@ -22,9 +22,9 @@ const actions = {
         state.isLoading = false;
 
     },
-    // set the article in my state  so I can assess it from a different screen
+    // set the article in my state so I can access it from a different screen
     articleDetails({ commit }, articleModel) {
-        commit("setAtricaleModel", articleModel)
+        commit("setArticleModel", articleModel)
     }
 };
 
@@ -32,7 +32,7 @@ const mutations = {
     setHomeModel(state, model) {
         state.homeModel = model;
     },
-    setAtricaleModel(state, model) {
+    setArticleModel(state, model) {
         state.articleModel = model;
 
     },

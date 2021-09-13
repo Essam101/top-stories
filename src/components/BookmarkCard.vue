@@ -33,7 +33,7 @@ export default {
     },
   },
   created: function () {
-    this.getBookMarks();
+    this.getBookmarks();
   },
 
   computed: {
@@ -50,12 +50,12 @@ export default {
   methods: {
     ...mapActions({
       removeArticle: "Bookmark/removeArticle",
-      getBookMarks: "Bookmark/getBookMarks",
+      getBookmarks: "Bookmark/getBookmarks",
       articleDetails: "Home/articleDetails",
     }),
     removeFromBookmark() {
       this.removeArticle(this.model);
-      this.getBookMarks();
+      this.getBookmarks();
     },
     openArticle() {
       console.log(this.model.title.trim());

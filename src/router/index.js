@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import BoockMarks from '../views/Bookmarks.vue'
+import Bookmarks from '../views/Bookmarks.vue'
 import ArticleDetails from '../views/ArticleDetails.vue'
 
 
@@ -26,7 +26,7 @@ const routes = [
   {
     path: '/bookmarks',
     name: 'bookmarks',
-    component: BoockMarks
+    component: Bookmarks
   },
   {
     path: '/articleDetails',
