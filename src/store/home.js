@@ -11,7 +11,8 @@ const state = {
 const actions = {
     // I do call this function every time I want to bring a new different section 
     async getHomeModel({ commit, state }) {
-        let urlQuery = router.history.current.query["section"] != undefined ? router.history.current.query["section"] : "home"
+        let q = router.history.current.query["section"]
+        let urlQuery = q != undefined ? q : "home"
         state.isLoading = true;
         await axios
             .get(`https://api.nytimes.com/svc/topstories/v2/${urlQuery}.json?api-key=${apiKey}`)

@@ -1,7 +1,7 @@
 <template>
   <div align="center" style="margin: 15px">
     <a :href="articleModel.short_url"
-      ><h4 style="max-width: 40rem">{{ articleModel.title }}</h4></a
+      ><h5 style="max-width: 40rem">{{ articleModel.title }}</h5></a
     >
 
     <b-card
@@ -18,8 +18,7 @@
             {{ articleModel.published_date | formatDate }}</span
           >
           <span class="col-md-4"
-            >Created date :
-            {{ articleModel.published_date | formatDate }}</span
+            >Created date : {{ articleModel.published_date | formatDate }}</span
           >
           <span class="col-md-4"
             >Updated date : {{ articleModel.updated_date | formatDate }}</span
