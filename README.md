@@ -1,8 +1,7 @@
 # top-stories
 
  ## About this App
- The app allows the user to view all the top stories from New York Times. Once the user selects a specific article, he/she will be able to see the following details about the article.
-
+ The app allows the user to view all the top stories from New York Times.
   ## Using
 Starting from the homepage, the user can access all the categories of articles from the navigation bar. Additional categories can be viewed by clicking on the "more" tab. While viewing the available articles, the user can click for more details or click to bookmark the article. Clicking the bookmark icon a second time will unbookmark the article. The bookmarked articles can be found in the "Bookmarks" tab. When viewing the details of the article, the user can click on the title to be taken to the original article. 
 
