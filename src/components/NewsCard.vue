@@ -9,10 +9,9 @@
     ></b-card-img>
 
     <h4 @click="atricaleDetails()">{{ model.title }}</h4>
-
     <template #footer>
       <span>Published date : {{ model.created_date | formatDate }}</span>
-      <span v-if="isInBookmark"
+      <span v-if="isInBookmarks()"
         ><b-icon
           icon="bookmark-heart-fill"
           style="margin-left: 100px"
@@ -30,14 +29,11 @@
   </b-card>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data() {
     return {
       isInBookmark: false,
-      bookMarks: {},
-      cats: [],
-      newCat: null,
     };
   },
   computed: {
@@ -47,6 +43,9 @@ export default {
           return this.model.multimedia[0].url;
       return "";
     },
+    ...mapState({
+      bookmarkModel: (state) => state.Bookmark.model,
+    }),
   },
   props: {
     model: {
@@ -55,44 +54,32 @@ export default {
   },
   created: function () {
     this.getBookMarks();
-    this.isInBookmarks(this.model.uri).then((val) => (this.isInBookmark = val));
-  },
-  mounted() {
-    if (localStorage.getItem("bookmarks")) {
-      try {
-        this.bookMarks = JSON.parse(localStorage.getItem("bookmarks"));
-      } catch (e) {
-        localStorage.removeItem("bookmarks");
-      }
-    }
   },
   methods: {
     ...mapActions({
-      isInBookmarks: "Bookmark/isInBookmarks",
       addArtical: "Bookmark/addArtical",
       removeAtrical: "Bookmark/removeAtrical",
       getBookMarks: "Bookmark/getBookMarks",
-      articaleDetails: "Home/articaleDetails",
+      articleDetails: "Home/articleDetails",
     }),
     addToBookmark() {
       this.addArtical(this.model);
-      this.checkIfInBookmark();
+      this.isInBookmarks();
     },
     removeFromBookmark() {
       this.removeAtrical(this.model);
-      this.checkIfInBookmark();
-    },
-    checkIfInBookmark() {
-      this.getBookMarks();
-      this.isInBookmarks(this.model.uri).then(
-        (val) => (this.isInBookmark = val)
-      );
+      this.isInBookmarks();
     },
     atricaleDetails() {
       this.$router.push({
         path: `articleDetails`,
       });
-      this.articaleDetails(this.model);
+      this.articleDetails(this.model);
+    },
+
+    // here I get the object from the local storage so I can check if this article is in the bookmark object or not
+    isInBookmarks() {
+      return this.bookmarkModel[this.model.uri] != null;
     },
   },
 };

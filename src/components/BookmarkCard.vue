@@ -2,16 +2,16 @@
   <div align="center">
     <b-card tag="article" class="mb-5">
       <b-card-img
-        @click="atricaleDetails()"
+        @click="openArticle()"
         :src="imageUrl"
         class="mb-5"
         height="200"
       ></b-card-img>
-      <h5 @click="atricaleDetails()">{{ title }} ......</h5>
+      <h5 @click="openArticle()">{{ title }} ......</h5>
 
       <template #footer>
         <span class="col-sm-4">
-          <b-icon icon="arrow-right" @click="atricaleDetails()"></b-icon
+          <b-icon icon="arrow-right" @click="openArticle()"></b-icon
         ></span>
         <span class="col-sm-4">
           <b-icon
@@ -51,18 +51,18 @@ export default {
     ...mapActions({
       removeAtrical: "Bookmark/removeAtrical",
       getBookMarks: "Bookmark/getBookMarks",
-      articaleDetails: "Home/articaleDetails",
+      articleDetails: "Home/articleDetails",
     }),
     removeFromBookmark() {
       this.removeAtrical(this.model);
       this.getBookMarks();
     },
-    atricaleDetails() {
+    openArticle() {
       console.log(this.model.title.trim());
       this.$router.push({
         path: `articleDetails`,
       });
-      this.articaleDetails(this.model);
+      this.articleDetails(this.model);
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div align="center" style="margin: 15px">
-    <a :href="articaleModel.short_url"
-      ><h4 style="max-width: 40rem">{{ articaleModel.title }}</h4></a
+    <a :href="articleModel.short_url"
+      ><h4 style="max-width: 40rem">{{ articleModel.title }}</h4></a
     >
 
     <b-card
@@ -10,19 +10,19 @@
       :img-src="imageUrl"
       img-alt="Image"
     >
-      <b-card-text>{{ articaleModel.abstract }} </b-card-text>
+      <b-card-text>{{ articleModel.abstract }} </b-card-text>
       <template #footer class="row">
         <div class="row">
           <span class="col-md-4"
             >Published date :
-            {{ articaleModel.published_date | formatDate }}</span
+            {{ articleModel.published_date | formatDate }}</span
           >
           <span class="col-md-4"
             >Created date :
-            {{ articaleModel.published_date | formatDate }}</span
+            {{ articleModel.published_date | formatDate }}</span
           >
           <span class="col-md-4"
-            >Updated date : {{ articaleModel.updated_date | formatDate }}</span
+            >Updated date : {{ articleModel.updated_date | formatDate }}</span
           >
         </div>
       </template>
@@ -35,17 +35,17 @@ import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState({
-      articaleModel: (state) => state.Home.articaleModel,
+      articleModel: (state) => state.Home.articleModel,
     }),
     imageUrl: function () {
-      if (this.articaleModel.multimedia != null)
-        if (this.articaleModel.multimedia.length > 0)
-          return this.articaleModel.multimedia[0].url;
+      if (this.articleModel.multimedia != null)
+        if (this.articleModel.multimedia.length > 0)
+          return this.articleModel.multimedia[0].url;
       return "";
     },
   },
   created: function () {
-    if (Object.keys(this.articaleModel).length == 0) {
+    if (Object.keys(this.articleModel).length == 0) {
       this.$router.go(-1);
     }
   },

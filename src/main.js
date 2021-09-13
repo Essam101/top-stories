@@ -28,6 +28,7 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+// fromat date function 
 Vue.filter('formatDate', function (value) {
   if (value) {
     return moment(String(value)).format('MM/DD/YYYY')

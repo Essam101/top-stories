@@ -81,9 +81,6 @@ export default {
     ...mapState({
       model: (state) => state.Home.homeModel,
     }),
-    imageUrl: function () {
-      return "active";
-    },
   },
   created: function () {
     this.getHomeModel();
@@ -91,10 +88,11 @@ export default {
   methods: {
     ...mapActions({
       getHomeModel: "Home/getHomeModel",
+      getBookMarks: "Bookmark/getBookMarks",
     }),
     async getAnotherSection(urlQurey) {
       this.$router.push({ path: "home", query: { section: urlQurey } });
-      await this.getHomeModel(urlQurey + ".json");
+      await this.getHomeModel();
     },
   },
 };

@@ -4,37 +4,44 @@ const state = {
 };
 
 const actions = {
-    getBookMarks({ state }) {
+    //  get the bookmark object from the local storage if it's exist 
+    getBookMarks({ commit }) {
         if (localStorage.getItem("bookmarks")) {
             try {
-                state.model = JSON.parse(localStorage.getItem("bookmarks"));
+                let bookmarkModel = JSON.parse(localStorage.getItem("bookmarks"));
+                commit("setBookmarkModel", bookmarkModel)
             } catch (e) {
                 localStorage.removeItem("bookmarks");
             }
         }
     },
-    addArtical({ state }, articalMode) {
+
+    // push the new article to the model object 
+    addArtical({ state, dispatch }, articalMode) {
         if (!state.model) return;
         state.model[articalMode.uri] = articalMode;
-        let parsed = JSON.stringify(state.model);
-        localStorage.setItem("bookmarks", parsed);
+        // called to save the model after updating  it 
+        dispatch("saveBookmarks")
+        dispatch("getBookMarks")
     },
-    isInBookmarks({ state }, key) {
-        if (state.model[key]) return state.model[key] != null
-        return false;
-    },
-    removeAtrical({ state }, articalMode) {
+    removeAtrical({ state, dispatch }, articalMode) {
+        dispatch("getBookMarks")
         delete state.model[articalMode.uri];
+        dispatch("saveBookmarks")
+    },
+    // the local storage save unit I call it after any update in the model to save 
+    saveBookmarks() {
         let parsed = JSON.stringify(state.model);
         localStorage.setItem("bookmarks", parsed);
-    },
+    }
 
 };
 
 const mutations = {
-    setHomeModel(state) {
-        state.model = localStorage.getItem("bookMarks");
-    },
+    setBookmarkModel(state, model) {
+        state.model = model;
+    }
+
 };
 const getters = {};
 
