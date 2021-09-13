@@ -94,7 +94,9 @@ export default {
       getBookMarks: "Bookmark/getBookMarks",
     }),
     async getAnotherSection(urlQurey) {
-      if (!this.isLoading && this.$route.query["section"] != urlQurey) {
+   
+
+      if (!this.isLoading && this.$route.query["section"]!=urlQurey) {
         this.$router.push({ path: "home", query: { section: urlQurey } });
         await this.getHomeModel();
       }

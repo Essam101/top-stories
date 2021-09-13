@@ -6,6 +6,8 @@ const state = {
     homeModel: [],
     articleModel: {},
     isLoading: false,
+    sections: ["home", "arts", "automobiles", "books", "business", "fashion", "food", "health", "insider", "magazine", "movies", "obituaries"],
+    dropDownSections: ["obituaries", "opinion", "politics", "realestate", "science", "sports", "sundayreview", "technology", "theater", "travel", "upshot", "us", "world"]
 };
 
 const actions = {

@@ -49,12 +49,12 @@ export default {
   },
   methods: {
     ...mapActions({
-      removeAtrical: "Bookmark/removeAtrical",
+      removeArticle: "Bookmark/removeArticle",
       getBookMarks: "Bookmark/getBookMarks",
       articleDetails: "Home/articleDetails",
     }),
     removeFromBookmark() {
-      this.removeAtrical(this.model);
+      this.removeArticle(this.model);
       this.getBookMarks();
     },
     openArticle() {

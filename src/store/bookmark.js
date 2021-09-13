@@ -17,14 +17,14 @@ const actions = {
     },
 
     // push the new article to the model object 
-    addArtical({ state, dispatch }, articalMode) {
+    addArticle({ state, dispatch }, articalMode) {
         if (!state.model) return;
         state.model[articalMode.uri] = articalMode;
         // called to save the model after updating  it 
         dispatch("saveBookmarks")
         dispatch("getBookMarks")
     },
-    removeAtrical({ state, dispatch }, articalMode) {
+    removeArticle({ state, dispatch }, articalMode) {
         dispatch("getBookMarks")
         delete state.model[articalMode.uri];
         dispatch("saveBookmarks")
