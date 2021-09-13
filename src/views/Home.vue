@@ -60,7 +60,9 @@
     </b-nav>
     <br />
     <div align="center">
+      <b-spinner variant="primary" v-if="isLoading"> </b-spinner>
       <NewsCard
+        v-else
         v-for="(i, index) in model.results"
         :key="index"
         :model="i"
@@ -80,6 +82,7 @@ export default {
   computed: {
     ...mapState({
       model: (state) => state.Home.homeModel,
+      isLoading: (state) => state.Home.isLoading,
     }),
   },
   created: function () {
@@ -91,8 +94,10 @@ export default {
       getBookMarks: "Bookmark/getBookMarks",
     }),
     async getAnotherSection(urlQurey) {
-      this.$router.push({ path: "home", query: { section: urlQurey } });
-      await this.getHomeModel();
+      if (!this.isLoading) {
+        this.$router.push({ path: "home", query: { section: urlQurey } });
+        await this.getHomeModel();
+      }
     },
   },
 };

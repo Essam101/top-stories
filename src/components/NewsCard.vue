@@ -76,7 +76,6 @@ export default {
       });
       this.articleDetails(this.model);
     },
-
     // here I get the object from the local storage so I can check if this article is in the bookmark object or not
     isInBookmarks() {
       return this.bookmarkModel[this.model.uri] != null;
