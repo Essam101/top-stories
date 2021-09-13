@@ -1,64 +1,25 @@
 <template>
   <div>
     <b-nav tabs align="center">
-      <b-navbar-brand active>{{ model.section }}</b-navbar-brand>
-      <b-nav-item @click="getAnotherSection('home')">home</b-nav-item>
-      <b-nav-item @click="getAnotherSection('arts')">arts</b-nav-item>
-      <b-nav-item @click="getAnotherSection('automobiles')"
-        >automobiles</b-nav-item
-      >
-      <b-nav-item @click="getAnotherSection('books')">books</b-nav-item>
-      <b-nav-item @click="getAnotherSection('business')"> business</b-nav-item>
-      <b-nav-item @click="getAnotherSection('fashion')">fashion</b-nav-item>
-      <b-nav-item @click="getAnotherSection('food')">food</b-nav-item>
-      <b-nav-item @click="getAnotherSection('health')">health</b-nav-item>
-      <b-nav-item @click="getAnotherSection('insider')">insider</b-nav-item>
-      <b-nav-item @click="getAnotherSection('magazine')">magazine</b-nav-item>
-      <b-nav-item @click="getAnotherSection('movies')"> movies</b-nav-item>
-      <b-nav-item @click="getAnotherSection('obituaries')"
-        >obituaries</b-nav-item
-      >
+      <div v-for="(i, index) in sections" :key="index">
+        <b-nav-item v-if="i == query" active>{{ i }}</b-nav-item>
+        <b-nav-item v-else @click="getAnotherSection(i)">{{ i }}</b-nav-item>
+      </div>
       <b-nav-item-dropdown text="more" right>
-        <b-dropdown-item @click="getAnotherSection('obituaries')"
-          >obituaries</b-dropdown-item
+        <div
+          v-for="(i, index) in dropDownSections"
+          :key="index"
+          @click="getAnotherSection(i)"
         >
-        <b-dropdown-item @click="getAnotherSection('opinion')"
-          >opinion</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('politics')"
-          >politics</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('realestate')"
-          >realestate</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('science')"
-          >science</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('sports')"
-          >sports</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('sundayreview')"
-          >sundayreview</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('technology')"
-          >technology</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('theater')"
-          >theater</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('travel')"
-          >travel</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('upshot')"
-          >upshot</b-dropdown-item
-        >
-        <b-dropdown-item @click="getAnotherSection('us')">us</b-dropdown-item>
-        <b-dropdown-item @click="getAnotherSection('world')"
-          >world</b-dropdown-item
-        >
+          <b-dropdown-item v-if="i == query" active>{{ i }}</b-dropdown-item>
+          <b-dropdown-item v-else @click="getAnotherSection(i)">{{
+            i
+          }}</b-dropdown-item>
+        </div>
       </b-nav-item-dropdown>
     </b-nav>
     <br />
+
     <div align="center">
       <b-spinner variant="primary" v-if="isLoading"> </b-spinner>
       <NewsCard
@@ -75,6 +36,9 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
+  data() {
+    return { query: this.$route.query["section"] };
+  },
   name: "App",
   components: {
     NewsCard: () => import("@/components/NewsCard.vue"),
@@ -83,6 +47,8 @@ export default {
     ...mapState({
       model: (state) => state.Home.homeModel,
       isLoading: (state) => state.Home.isLoading,
+      sections: (state) => state.Home.sections,
+      dropDownSections: (state) => state.Home.dropDownSections,
     }),
   },
   created: function () {
@@ -94,9 +60,8 @@ export default {
       getBookMarks: "Bookmark/getBookMarks",
     }),
     async getAnotherSection(urlQurey) {
-   
-
-      if (!this.isLoading && this.$route.query["section"]!=urlQurey) {
+      if (!this.isLoading) {
+        this.query = urlQurey;
         this.$router.push({ path: "home", query: { section: urlQurey } });
         await this.getHomeModel();
       }
